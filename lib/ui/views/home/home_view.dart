@@ -56,7 +56,10 @@ class HomeView extends StatelessWidget {
                 SizedBox(
                   height: 30,
                 ),
-                ...popularCategoriesSection(categories: model.categories),
+                ...popularCategoriesSection(
+                  model: model,
+                  categories: model.categories,
+                ),
                 ...monthlyBestSellersSection(
                   monthlyBestSellers: model.monthlyBestSellers,
                 )
@@ -123,6 +126,7 @@ class HomeView extends StatelessWidget {
   }
 
   List<Widget> popularCategoriesSection({
+    @required HomeViewModel model,
     @required List<Map<String, dynamic>> categories,
   }) {
     return [
@@ -146,9 +150,9 @@ class HomeView extends StatelessWidget {
                         ? const EdgeInsets.only(right: 10)
                         : null,
                 child: AppCategoryListItem(
-                  title: category['title'],
-                  image: category['image'],
-                  farmers: category['farmers'],
+                  model: model,
+                  category: category,
+                  index: index,
                 ),
               );
             },
@@ -234,65 +238,78 @@ class AppHomeListHeader extends StatelessWidget {
 }
 
 class AppCategoryListItem extends StatelessWidget {
-  final String title;
+  final HomeViewModel model;
 
-  final String farmers;
+  final Map<String, dynamic> category;
 
-  final String image;
+  final int index;
 
   const AppCategoryListItem({
     Key key,
-    @required this.title,
-    this.farmers,
-    this.image,
+    @required this.model,
+    @required this.category,
+    this.index,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 5,
-        vertical: 5,
-      ),
-      height: 180,
-      width: 120,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+    print('heroTag: category-' + category['title']);
+
+    return Hero(
+      tag: 'category-' + category['title'],
+      child: GestureDetector(
+        onTap: () => model.navigateToCategoryDetailView(
+            categoryId: category['title'], category: category),
+        child: Container(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 5,
+            vertical: 5,
           ),
-          Text(
-            farmers,
-            style: TextStyle(
-              color: Colors.grey[800],
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
+          height: double.infinity,
+          width: 120,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                category['title'],
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                category['farmers'],
+                style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 10)
+            ],
           ),
-          SizedBox(height: 10)
-        ],
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        image: DecorationImage(
-          image: NetworkImage(image),
-          fit: BoxFit.cover,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+            image: DecorationImage(
+              image: NetworkImage(category['image']),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0),
+                BlendMode.darken,
+              ),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey[200],
+                blurRadius: 5,
+                spreadRadius: 1,
+                offset: Offset(3, 2),
+              )
+            ],
+          ),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey[200],
-            blurRadius: 5,
-            spreadRadius: 1,
-            offset: Offset(3, 2),
-          )
-        ],
       ),
     );
   }
@@ -371,6 +388,10 @@ class AppMonthlyBestSellerItem extends StatelessWidget {
         image: DecorationImage(
           image: NetworkImage(image),
           fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+            Colors.black.withOpacity(0),
+            BlendMode.darken,
+          ),
         ),
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
