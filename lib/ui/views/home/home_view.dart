@@ -259,7 +259,7 @@ class AppCategoryListItem extends StatelessWidget {
       tag: 'category-' + category.title,
       child: GestureDetector(
         onTap: () =>
-            model.navigateToCategoryDetailView(categoryId: category.title),
+            model.navigateToCategoryDetailView(categoryId: category.id),
         child: Container(
           margin: const EdgeInsets.symmetric(
             horizontal: 5,

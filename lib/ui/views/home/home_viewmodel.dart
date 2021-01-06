@@ -30,8 +30,7 @@ class HomeViewModel extends ReactiveViewModel {
   }
 
   navigateToCategoryDetailView({
-    String categoryId,
-    Map<String, dynamic> category,
+    int categoryId,
   }) async {
     _navigationService.navigateTo(
       Routes.categoryDetailView(categoryId: categoryId),
