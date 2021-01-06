@@ -69,6 +69,7 @@ class ThemeService with ReactiveServiceMixin {
         textTheme: ButtonTextTheme.primary,
         shape: shape,
       ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(elevation: 10),
     );
   }
 }
