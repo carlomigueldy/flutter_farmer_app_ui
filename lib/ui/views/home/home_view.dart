@@ -171,6 +171,7 @@ class HomeView extends StatelessWidget {
     return [
       AppHomeListHeader(
         title: 'Monthly Best Sellers',
+        withViewAll: false,
       ),
       if (farmers != null)
         Container(
@@ -202,10 +203,12 @@ class HomeView extends StatelessWidget {
 
 class AppHomeListHeader extends StatelessWidget {
   final String title;
+  final bool withViewAll;
 
   const AppHomeListHeader({
     Key key,
     @required this.title,
+    this.withViewAll: true,
   }) : super(key: key);
 
   @override
@@ -225,14 +228,15 @@ class AppHomeListHeader extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          Text(
-            'View All',
-            style: TextStyle(
-              color: Colors.grey[700],
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1,
+          if (withViewAll)
+            Text(
+              'View All',
+              style: TextStyle(
+                color: Colors.grey[700],
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1,
+              ),
             ),
-          ),
         ],
       ),
     );

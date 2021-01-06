@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 import '../ui/views/category_detail/category_detail_view.dart';
 import '../ui/views/farmer_detail/farmer_detail_view.dart';
+import '../ui/views/getting_started/getting_started_view.dart';
 import '../ui/views/home/home_view.dart';
 import '../ui/views/main/main_view.dart';
 import '../ui/views/splash/splash_view.dart';
@@ -18,6 +19,7 @@ import '../ui/views/splash/splash_view.dart';
 class Routes {
   static const String splashView = '/';
   static const String mainView = '/main';
+  static const String gettingStartedView = '/getting-started';
   static const String homeView = '/home';
   static const String _categoryDetailView = '/categories/:categoryId';
   static String categoryDetailView({@required dynamic categoryId}) =>
@@ -28,6 +30,7 @@ class Routes {
   static const all = <String>{
     splashView,
     mainView,
+    gettingStartedView,
     homeView,
     _categoryDetailView,
     _farmerDetailView,
@@ -40,6 +43,7 @@ class Router extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(Routes.splashView, page: SplashView),
     RouteDef(Routes.mainView, page: MainView),
+    RouteDef(Routes.gettingStartedView, page: GettingStartedView),
     RouteDef(Routes.homeView, page: HomeView),
     RouteDef(Routes._categoryDetailView, page: CategoryDetailView),
     RouteDef(Routes._farmerDetailView, page: FarmerDetailView),
@@ -56,6 +60,12 @@ class Router extends RouterBase {
     MainView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => MainView(),
+        settings: data,
+      );
+    },
+    GettingStartedView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => GettingStartedView(),
         settings: data,
       );
     },
