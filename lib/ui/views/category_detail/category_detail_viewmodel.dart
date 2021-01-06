@@ -1,25 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_architecture_starter/app/locator.dart';
-import 'package:stacked_architecture_starter/services/api/category_service.dart';
+import 'package:stacked_architecture_starter/models/food_crop.dart';
+import 'package:stacked_architecture_starter/services/api/food_crop_service.dart';
 
-class CategoryDetailViewModel extends FutureViewModel<Map<String, dynamic>> {
-  final CategoryService _categoryService = locator<CategoryService>();
+class CategoryDetailViewModel extends FutureViewModel<FoodCrop> {
+  final FoodCropService _foodCropService = locator<FoodCropService>();
 
-  final String categoryId;
+  final int categoryId;
 
   CategoryDetailViewModel({
     @required this.categoryId,
   });
 
-  String get heroTag => data != null ? 'category-' + data['title'] : 'hero-tag';
+  String get heroTag => data != null ? 'category-' + data.title : 'hero-tag';
 
   @override
-  Future<Map<String, dynamic>> futureToRun() async {
-    var category = await _categoryService.findById(categoryId: categoryId);
-
-    // print('(categoryDetailViewModel) heroTag: category-' + category['title']);
-
-    return category;
+  Future<FoodCrop> futureToRun() async {
+    return await _foodCropService.findById(categoryId: categoryId);
   }
 }

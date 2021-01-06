@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_architecture_starter/models/farmer.dart';
+import 'package:stacked_architecture_starter/models/food_crop.dart';
 import 'package:stacked_architecture_starter/theme/colors.dart';
 
 import 'home_viewmodel.dart' show HomeViewModel;
@@ -58,10 +60,10 @@ class HomeView extends StatelessWidget {
                 ),
                 ...popularCategoriesSection(
                   model: model,
-                  categories: model.categories,
+                  foodCrops: model.categories,
                 ),
                 ...monthlyBestSellersSection(
-                  monthlyBestSellers: model.monthlyBestSellers,
+                  farmers: model.farmers,
                 )
               ],
             ),
@@ -127,22 +129,22 @@ class HomeView extends StatelessWidget {
 
   List<Widget> popularCategoriesSection({
     @required HomeViewModel model,
-    @required List<Map<String, dynamic>> categories,
+    @required List<FoodCrop> foodCrops,
   }) {
     return [
       AppHomeListHeader(
         title: 'Popular Categories',
       ),
-      if (categories != null)
+      if (foodCrops != null)
         Container(
           height: 180,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: categories.length,
+            itemCount: foodCrops.length,
             itemBuilder: (context, index) {
               bool isFirst = index == 0;
-              bool isLast = index == categories.length - 1;
-              var category = categories[index];
+              bool isLast = index == foodCrops.length - 1;
+              var category = foodCrops[index];
               return Container(
                 margin: isFirst
                     ? const EdgeInsets.only(left: 10)
@@ -162,22 +164,22 @@ class HomeView extends StatelessWidget {
   }
 
   List<Widget> monthlyBestSellersSection({
-    @required List<Map<String, dynamic>> monthlyBestSellers,
+    @required List<Farmer> farmers,
   }) {
     return [
       AppHomeListHeader(
         title: 'Monthly Best Sellers',
       ),
-      if (monthlyBestSellers != null)
+      if (farmers != null)
         Container(
           height: 250,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: monthlyBestSellers.length,
+            itemCount: farmers.length,
             itemBuilder: (context, index) {
               bool isFirst = index == 0;
-              bool isLast = index == monthlyBestSellers.length - 1;
-              var bestSeller = monthlyBestSellers[index];
+              bool isLast = index == farmers.length - 1;
+              var bestSeller = farmers[index];
               return Container(
                 margin: isFirst
                     ? const EdgeInsets.only(left: 10)
@@ -185,10 +187,10 @@ class HomeView extends StatelessWidget {
                         ? const EdgeInsets.only(right: 10)
                         : null,
                 child: AppMonthlyBestSellerItem(
-                  fullName: bestSeller['full_name'],
-                  image: bestSeller['image'],
-                  ships: bestSeller['ships'],
-                  rating: bestSeller['rating'],
+                  fullName: bestSeller.fullName,
+                  image: bestSeller.image,
+                  ships: bestSeller.ships,
+                  rating: bestSeller.rating,
                 ),
               );
             },
@@ -240,7 +242,7 @@ class AppHomeListHeader extends StatelessWidget {
 class AppCategoryListItem extends StatelessWidget {
   final HomeViewModel model;
 
-  final Map<String, dynamic> category;
+  final FoodCrop category;
 
   final int index;
 
@@ -253,13 +255,11 @@ class AppCategoryListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('heroTag: category-' + category['title']);
-
     return Hero(
-      tag: 'category-' + category['title'],
+      tag: 'category-' + category.title,
       child: GestureDetector(
-        onTap: () => model.navigateToCategoryDetailView(
-            categoryId: category['title'], category: category),
+        onTap: () =>
+            model.navigateToCategoryDetailView(categoryId: category.title),
         child: Container(
           margin: const EdgeInsets.symmetric(
             horizontal: 5,
@@ -271,7 +271,7 @@ class AppCategoryListItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                category['title'],
+                category.title,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,
@@ -279,7 +279,7 @@ class AppCategoryListItem extends StatelessWidget {
                 ),
               ),
               Text(
-                category['farmers'],
+                category.farmers,
                 style: TextStyle(
                   color: Colors.grey[800],
                   fontSize: 14,
@@ -293,7 +293,7 @@ class AppCategoryListItem extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(15),
             image: DecorationImage(
-              image: NetworkImage(category['image']),
+              image: NetworkImage(category.image),
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
                 Colors.black.withOpacity(0),

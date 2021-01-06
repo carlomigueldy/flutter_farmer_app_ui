@@ -11,7 +11,7 @@ class CategoryDetailView extends StatelessWidget {
 
     return ViewModelBuilder<CategoryDetailViewModel>.reactive(
       viewModelBuilder: () => CategoryDetailViewModel(
-        categoryId: routeData.pathParams['categoryId'].stringValue,
+        categoryId: routeData.pathParams['categoryId'].intValue,
       ),
       builder: (
         BuildContext context,
@@ -43,13 +43,13 @@ class CategoryDetailView extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(model.data['image']),
+              image: NetworkImage(model.data.image),
               fit: BoxFit.cover,
             ),
           ),
           child: Center(
             child: Text(
-              model.data['title'],
+              model.data.title,
               style: TextStyle(
                 fontSize: 34,
                 fontWeight: FontWeight.bold,
@@ -74,7 +74,7 @@ class CategoryDetailView extends StatelessWidget {
               children: [
                 SizedBox(height: 25),
                 Text(
-                  model.data['farmers'] + ' are selling ' + model.data['title'],
+                  model.data.farmers + ' are selling ' + model.data.title,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
