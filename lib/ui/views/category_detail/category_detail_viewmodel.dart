@@ -16,7 +16,8 @@ class CategoryDetailViewModel extends FutureViewModel<FoodCrop> {
     @required this.categoryId,
   });
 
-  String get heroTag => data != null ? 'category-' + data.title : 'hero-tag';
+  String get heroTag =>
+      data != null ? 'category-' + data.id.toString() : 'category-hero-tag';
 
   List<Farmer> get farmers => _farmerService.farmers;
 

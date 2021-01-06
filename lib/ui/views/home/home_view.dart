@@ -63,6 +63,7 @@ class HomeView extends StatelessWidget {
                   foodCrops: model.categories,
                 ),
                 ...monthlyBestSellersSection(
+                  model: model,
                   farmers: model.farmers,
                 )
               ],
@@ -164,6 +165,7 @@ class HomeView extends StatelessWidget {
   }
 
   List<Widget> monthlyBestSellersSection({
+    @required HomeViewModel model,
     @required List<Farmer> farmers,
   }) {
     return [
@@ -179,18 +181,16 @@ class HomeView extends StatelessWidget {
             itemBuilder: (context, index) {
               bool isFirst = index == 0;
               bool isLast = index == farmers.length - 1;
-              var bestSeller = farmers[index];
+              Farmer farmer = farmers[index];
               return Container(
                 margin: isFirst
                     ? const EdgeInsets.only(left: 10)
                     : isLast
                         ? const EdgeInsets.only(right: 10)
                         : null,
-                child: AppMonthlyBestSellerItem(
-                  fullName: bestSeller.fullName,
-                  image: bestSeller.image,
-                  ships: bestSeller.ships,
-                  rating: bestSeller.rating,
+                child: AppFarmerListItem(
+                  farmer: farmer,
+                  model: model,
                 ),
               );
             },
@@ -256,7 +256,7 @@ class AppCategoryListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: 'category-' + category.title,
+      tag: 'category-' + category.id.toString(),
       child: GestureDetector(
         onTap: () =>
             model.navigateToCategoryDetailView(categoryId: category.id),
@@ -315,94 +315,103 @@ class AppCategoryListItem extends StatelessWidget {
   }
 }
 
-class AppMonthlyBestSellerItem extends StatelessWidget {
-  final String fullName;
+class AppFarmerListItem extends StatelessWidget {
+  final Farmer farmer;
+  final HomeViewModel model;
 
-  final String ships;
-
-  final double rating;
-
-  final String image;
-
-  const AppMonthlyBestSellerItem({
+  const AppFarmerListItem({
     Key key,
-    @required this.fullName,
-    this.rating,
-    this.ships,
-    this.image,
+    @required this.farmer,
+    @required this.model,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double height = 175;
     double width = 175;
 
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 5,
-        vertical: 5,
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      height: height,
-      width: width,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            fullName,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+    return Hero(
+      tag: 'farmer-' + farmer.id.toString(),
+      child: Material(
+        type: MaterialType.transparency,
+        child: GestureDetector(
+          onTap: () => model.navigateToFarmerDetailView(
+            farmerId: farmer.id,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(ships, style: TextStyle(color: Colors.white)),
-              Row(
+          child: Container(
+            margin: const EdgeInsets.symmetric(
+              horizontal: 5,
+              vertical: 5,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            height: double.infinity,
+            width: width,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.star,
-                    size: 18,
-                    color: getColor(type: ColorType.primary),
-                  ),
-                  SizedBox(width: 5),
                   Text(
-                    rating.toString(),
+                    farmer.fullName,
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
-                  )
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(farmer.ships,
+                            style: TextStyle(color: Colors.white)),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              size: 18,
+                              color: getColor(type: ColorType.primary),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              farmer.rating.toString(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10)
                 ],
               ),
-            ],
-          ),
-          SizedBox(height: 10)
-        ],
-      ),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(image),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Colors.black.withOpacity(0),
-            BlendMode.darken,
+            ),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(farmer.image),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0),
+                  BlendMode.darken,
+                ),
+              ),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey[200],
+                  blurRadius: 5,
+                  spreadRadius: 1,
+                  offset: Offset(3, 2),
+                )
+              ],
+            ),
           ),
         ),
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey[200],
-            blurRadius: 5,
-            spreadRadius: 1,
-            offset: Offset(3, 2),
-          )
-        ],
       ),
     );
   }

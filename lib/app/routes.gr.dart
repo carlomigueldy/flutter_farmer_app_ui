@@ -10,6 +10,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/views/category_detail/category_detail_view.dart';
+import '../ui/views/farmer_detail/farmer_detail_view.dart';
 import '../ui/views/home/home_view.dart';
 import '../ui/views/main/main_view.dart';
 import '../ui/views/splash/splash_view.dart';
@@ -21,11 +22,15 @@ class Routes {
   static const String _categoryDetailView = '/categories/:categoryId';
   static String categoryDetailView({@required dynamic categoryId}) =>
       '/categories/$categoryId';
+  static const String _farmerDetailView = '/farmers/:farmerId';
+  static String farmerDetailView({@required dynamic farmerId}) =>
+      '/farmers/$farmerId';
   static const all = <String>{
     splashView,
     mainView,
     homeView,
     _categoryDetailView,
+    _farmerDetailView,
   };
 }
 
@@ -37,6 +42,7 @@ class Router extends RouterBase {
     RouteDef(Routes.mainView, page: MainView),
     RouteDef(Routes.homeView, page: HomeView),
     RouteDef(Routes._categoryDetailView, page: CategoryDetailView),
+    RouteDef(Routes._farmerDetailView, page: FarmerDetailView),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -62,6 +68,12 @@ class Router extends RouterBase {
     CategoryDetailView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => CategoryDetailView(),
+        settings: data,
+      );
+    },
+    FarmerDetailView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => FarmerDetailView(),
         settings: data,
       );
     },

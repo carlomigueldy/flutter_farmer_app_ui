@@ -32,8 +32,13 @@ class HomeViewModel extends ReactiveViewModel {
   navigateToCategoryDetailView({
     int categoryId,
   }) async {
-    _navigationService.navigateTo(
-      Routes.categoryDetailView(categoryId: categoryId),
-    );
+    _navigationService
+        .navigateTo(Routes.categoryDetailView(categoryId: categoryId));
+  }
+
+  navigateToFarmerDetailView({
+    int farmerId,
+  }) async {
+    _navigationService.navigateTo(Routes.farmerDetailView(farmerId: farmerId));
   }
 }
