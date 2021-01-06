@@ -94,6 +94,9 @@ class CategoryDetailView extends StatelessWidget {
                     itemBuilder: (context, index) {
                       Farmer farmer = model.farmers[index];
                       return ListTile(
+                        onTap: () => model.navigateToFarmerDetailView(
+                          farmerId: farmer.id,
+                        ),
                         leading: CircleAvatar(
                           backgroundImage: NetworkImage(farmer.image),
                           radius: 30,

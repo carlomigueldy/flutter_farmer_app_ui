@@ -345,50 +345,44 @@ class AppFarmerListItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             height: double.infinity,
             width: width,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    farmer.fullName,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  farmer.fullName,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(farmer.ships, style: TextStyle(color: Colors.white)),
+                    Row(
                       children: [
-                        Text(farmer.ships,
-                            style: TextStyle(color: Colors.white)),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              size: 18,
-                              color: getColor(type: ColorType.primary),
-                            ),
-                            SizedBox(width: 5),
-                            Text(
-                              farmer.rating.toString(),
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
-                          ],
+                        Icon(
+                          Icons.star,
+                          size: 18,
+                          color: getColor(type: ColorType.primary),
                         ),
+                        SizedBox(width: 5),
+                        Text(
+                          farmer.rating.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
                       ],
                     ),
-                  ),
-                  SizedBox(height: 10)
-                ],
-              ),
+                  ],
+                ),
+                SizedBox(height: 10)
+              ],
             ),
             decoration: BoxDecoration(
               image: DecorationImage(

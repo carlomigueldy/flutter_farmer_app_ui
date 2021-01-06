@@ -1,13 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_architecture_starter/theme/colors.dart';
 import 'package:stacked_architecture_starter/ui/views/farmer_detail/farmer_detail_viewmodel.dart';
 
 class FarmerDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     RouteData routeData = RouteData.of(context);
-    double height = MediaQuery.of(context).size.height;
+    Size size = MediaQuery.of(context).size;
+    double height = size.height;
+    double width = size.width;
 
     return ViewModelBuilder<FarmerDetailViewModel>.reactive(
       viewModelBuilder: () => FarmerDetailViewModel(
@@ -27,6 +30,7 @@ class FarmerDetailView extends StatelessWidget {
                   : farmerDetailViewStack(
                       model: model,
                       height: height,
+                      width: width,
                     ),
             ),
           ),
@@ -35,14 +39,18 @@ class FarmerDetailView extends StatelessWidget {
     );
   }
 
-  Widget farmerDetailViewStack(
-      {@required FarmerDetailViewModel model, @required double height}) {
+  Widget farmerDetailViewStack({
+    @required FarmerDetailViewModel model,
+    @required double height,
+    @required double width,
+  }) {
     return Stack(
       children: [
         Container(
           height: height * 0.4,
           width: double.infinity,
           decoration: BoxDecoration(
+            color: Colors.green[100],
             image: DecorationImage(
               image: NetworkImage(model.data.backgroundImage),
               fit: BoxFit.cover,
@@ -73,22 +81,88 @@ class FarmerDetailView extends StatelessWidget {
             ),
             child: Column(
               children: [
-                SizedBox(height: 25),
+                SizedBox(height: 115),
                 Text(
                   model.data.fullName,
                   style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.star,
+                      color: getColor(
+                        type: ColorType.primary,
+                      ),
+                      size: 16,
+                    ),
+                    SizedBox(width: 2),
+                    Text(model.data.rating.toString()),
+                    SizedBox(width: 5),
+                    Text(
+                      '·',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    SizedBox(width: 5),
+                    Text('10 ton veg shipped successfully')
+                  ],
+                ),
                 SizedBox(height: 25),
+                Text(
+                  'About his firm and process',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 Container(
-                  // color: Colors.blue,
-                  height: height * 0.50,
-                  margin: const EdgeInsets.symmetric(horizontal: 5),
-                  width: double.infinity,
-                )
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  child: Text(model.data.description),
+                ),
+                Container(
+                  height: 55,
+                  width: width,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: MaterialButton(
+                    color: Colors.green[50],
+                    elevation: 0,
+                    child: Text(
+                      'Connect with ${model.data.firstName}',
+                      style: TextStyle(
+                        color: getColor(
+                          type: ColorType.primary,
+                        ),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () => print('Pressed'),
+                  ),
+                ),
               ],
+            ),
+          ),
+        ),
+        Positioned(
+          top: height * 0.25,
+          left: width * 0.25,
+          right: width * 0.25,
+          child: Container(
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(model.data.image),
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.green[300],
+              radius: 80,
+            ),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
             ),
           ),
         ),

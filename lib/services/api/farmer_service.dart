@@ -6,9 +6,8 @@ import 'package:stacked/stacked.dart';
 import '../../models/farmer.dart';
 
 String description =
-    "When it's time to finally get your children that very first telescope, you want to make sure it's just the right thing. \n"
-    "There are a number of reasons you should put some serious thought into just what this beginner telescope should look like."
-    "Perhaps this will be your children's first experience with a real telescope. They may have a healthy and thriving love of astronomy from your family trips to the country to watch a meteor shower.";
+    "When it's time to finally get your children that very first telescope, you want to make sure it's just the right thing. \n \n"
+    "There are a number of reasons you should put some serious thought into just what this beginner telescope should look like.";
 
 @lazySingleton
 class FarmerService with ReactiveServiceMixin {
