@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:stacked_architecture_starter/app/ui/setup_snackbar_ui.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../services/alert_service.dart';

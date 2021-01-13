@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dio/dio.dart';
 
+import '../../app/ui/setup_snackbar_ui.dart';
 import '../../app/exceptions/handler.dart';
 import '../../app/utils/device.dart';
 import '../../app/http.dart';
