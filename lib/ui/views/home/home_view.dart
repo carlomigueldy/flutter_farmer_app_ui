@@ -349,45 +349,6 @@ class AppFarmerListItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             height: double.infinity,
             width: width,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  farmer.fullName,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(farmer.ships, style: TextStyle(color: Colors.white)),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.star,
-                          size: 18,
-                          color: getColor(type: ColorType.primary),
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          farmer.rating.toString(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10)
-              ],
-            ),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(farmer.image),
@@ -406,6 +367,75 @@ class AppFarmerListItem extends StatelessWidget {
                   spreadRadius: 1,
                   offset: Offset(3, 2),
                 )
+              ],
+            ),
+            child: Stack(
+              children: [
+                if (farmer.isPesticideFreeFarm)
+                  Positioned(
+                    top: 10,
+                    left: 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(15),
+                        // borderRadius: BorderRadius.only(
+                        //   bottomLeft: Radius.circular(15),
+                        //   bottomRight: Radius.circular(15),
+                        // ),
+                      ),
+                      child: Icon(
+                        Icons.eco_rounded,
+                        color: Colors.white,
+                        size: 32,
+                      ),
+                    ),
+                  ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        farmer.fullName,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(farmer.ships,
+                            style: TextStyle(color: Colors.white)),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              size: 18,
+                              color: getColor(type: ColorType.primary),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              farmer.rating.toString(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10)
+                  ],
+                ),
               ],
             ),
           ),

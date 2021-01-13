@@ -16,6 +16,7 @@ class Farmer {
   final double rating;
   final String image;
   final String backgroundImage;
+  final bool isPesticideFreeFarm;
 
   Farmer({
     this.id,
@@ -27,6 +28,7 @@ class Farmer {
     this.rating: 0,
     this.image: "",
     this.backgroundImage: "",
+    this.isPesticideFreeFarm: false,
   });
 
   factory Farmer.fromJson(Map<String, dynamic> json) => _$FarmerFromJson(json);
