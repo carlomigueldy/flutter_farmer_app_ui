@@ -31,6 +31,8 @@ GetIt $initGetIt(
   gh.lazySingleton<AlertService>(() => AlertService());
   gh.lazySingleton<AppDeviceInfo>(() => AppDeviceInfo());
   gh.lazySingleton<AuthenticationService>(() => AuthenticationService());
+  gh.lazySingleton<BottomSheetService>(
+      () => thirdPartyServicesModule.bottomSheetService);
   gh.lazySingleton<DialogService>(() => thirdPartyServicesModule.dialogService);
   gh.lazySingleton<ExceptionHandler>(() => ExceptionHandler());
   gh.lazySingleton<FarmerService>(() => FarmerService());
@@ -45,6 +47,8 @@ GetIt $initGetIt(
 }
 
 class _$ThirdPartyServicesModule extends ThirdPartyServicesModule {
+  @override
+  BottomSheetService get bottomSheetService => BottomSheetService();
   @override
   DialogService get dialogService => DialogService();
   @override

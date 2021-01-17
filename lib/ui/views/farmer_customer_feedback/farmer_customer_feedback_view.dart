@@ -90,7 +90,7 @@ class FarmerCustomerFeedbackView extends StatelessWidget {
                     height: 60,
                     width: double.infinity,
                     child: MaterialButton(
-                      onPressed: () => null,
+                      onPressed: () => model.onSubmitFeedback(),
                       color: Colors.green,
                       child: Text('Submit Feedback'),
                     ),
