@@ -123,10 +123,9 @@ class UserChatInput extends StatelessWidget {
 
   final FarmerChatViewModel model;
 
-  TextEditingController textEditingController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
+    TextEditingController textEditingController = TextEditingController();
     return Container(
       height: 50,
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
