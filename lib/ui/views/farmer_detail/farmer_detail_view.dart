@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_architecture_starter/theme/box_shadow.dart';
 import 'package:stacked_architecture_starter/theme/colors.dart';
 import 'package:stacked_architecture_starter/ui/views/farmer_detail/farmer_detail_viewmodel.dart';
 
@@ -178,12 +179,7 @@ class FarmerDetailView extends StatelessWidget {
                   color: Colors.white,
                   shape: BoxShape.circle,
                   boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      spreadRadius: 2,
-                      blurRadius: 7,
-                      offset: Offset(0, 3), // changes position of shadow
-                    ),
+                    kBoxShadowPrimary,
                   ],
                 ),
                 margin: const EdgeInsets.all(10),
@@ -199,12 +195,7 @@ class FarmerDetailView extends StatelessWidget {
                   color: Colors.white,
                   shape: BoxShape.circle,
                   boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      spreadRadius: 2,
-                      blurRadius: 7,
-                      offset: Offset(0, 3), // changes position of shadow
-                    ),
+                    kBoxShadowPrimary,
                   ],
                 ),
                 margin: const EdgeInsets.all(10),
