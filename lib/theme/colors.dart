@@ -21,7 +21,7 @@ getColor({ColorType type}) {
     case ColorType.secondary:
       return Colors.grey[800];
     case ColorType.accent:
-      return Colors.indigo[100];
+      return Colors.green[100];
     case ColorType.error:
       return Colors.red;
     case ColorType.success:

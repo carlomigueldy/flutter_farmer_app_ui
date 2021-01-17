@@ -141,7 +141,9 @@ class FarmerDetailView extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    onPressed: () => print('Pressed'),
+                    onPressed: () => model.navigateToChatViewWithFarmer(
+                      farmerId: model.data.id,
+                    ),
                   ),
                 ),
               ],

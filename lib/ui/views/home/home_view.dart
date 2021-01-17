@@ -371,7 +371,7 @@ class AppFarmerListItem extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                if (farmer.isPesticideFreeFarm)
+                if (farmer.isPesticideFreeFarm == null)
                   Positioned(
                     top: 10,
                     left: 0,
