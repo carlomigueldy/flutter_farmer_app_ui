@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -19,7 +21,7 @@ class FarmerChatViewModel extends FutureViewModel<Farmer> {
 
   bool hasNewMessage = false;
 
-  List<String> newMessages = [];
+  List<Map<String, dynamic>> messages = [];
 
   String messageInput = "";
 
@@ -32,10 +34,38 @@ class FarmerChatViewModel extends FutureViewModel<Farmer> {
     _navigationService.back();
   }
 
-  newMessage(String value) {
+  newMessage(String value) async {
     hasNewMessage = true;
 
-    newMessages.add(value);
+    messages.add({
+      'text': value,
+      'isFarmer': false,
+    });
+
+    if (value == 'What do you have for sale?') {
+      Future.delayed(const Duration(seconds: 3));
+      messages.add({
+        'text': 'I have potatoes available for sale',
+        'isFarmer': true,
+      });
+    }
+
+    if (value == 'How much for per kg of potatoes?') {
+      Future.delayed(const Duration(seconds: 3));
+      messages.add({
+        'text': '50 per kg',
+        'isFarmer': true,
+      });
+    }
+
+    if (value == 'Ok I think I will order from you') {
+      Future.delayed(const Duration(seconds: 3));
+      messages.add({
+        'text': 'Ok',
+        'isFarmer': true,
+      });
+    }
+
     messageInput = "";
     notifyListeners();
   }

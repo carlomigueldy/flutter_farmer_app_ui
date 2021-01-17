@@ -63,38 +63,14 @@ class FarmerChatView extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        ChatMessages(
-                          model: model,
-                          size: size,
-                          isFarmer: false,
-                          messages: ['What do you have for sale?'],
-                        ),
-                        ChatMessages(
-                          model: model,
-                          size: size,
-                          isFarmer: true,
-                          messages: [
-                            'We have some potatoes available',
-                          ],
-                        ),
-                        ChatMessages(
-                          model: model,
-                          size: size,
-                          isFarmer: false,
-                          messages: ['How much for per kg of potatoes'],
-                        ),
-                        ChatMessages(
-                          model: model,
-                          size: size,
-                          isFarmer: true,
-                          messages: ['50 per kg'],
-                        ),
-                        if (model.hasNewMessage)
+                        for (int messagesIndex = 0;
+                            messagesIndex < model.messages.length;
+                            messagesIndex++)
                           ChatMessages(
                             model: model,
                             size: size,
-                            isFarmer: false,
-                            messages: model.newMessages,
+                            isFarmer: model.messages[messagesIndex]['isFarmer'],
+                            messages: [model.messages[messagesIndex]['text']],
                           ),
                       ],
                     ),
@@ -155,7 +131,10 @@ class UserChatInput extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () => model.newMessage(textEditingController.text),
+            onPressed: () {
+              model.newMessage(textEditingController.text);
+              FocusScope.of(context).unfocus();
+            },
             icon: Icon(
               Icons.send,
               color: getColor(type: ColorType.primary),
