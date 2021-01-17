@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 import '../ui/views/category_detail/category_detail_view.dart';
 import '../ui/views/farmer_chat/farmer_chat_view.dart';
+import '../ui/views/farmer_customer_feedback/farmer_customer_feedback_view.dart';
 import '../ui/views/farmer_detail/farmer_detail_view.dart';
 import '../ui/views/getting_started/getting_started_view.dart';
 import '../ui/views/home/home_view.dart';
@@ -31,6 +32,10 @@ class Routes {
   static const String _farmerChatView = '/farmers/:farmerId/chat';
   static String farmerChatView({@required dynamic farmerId}) =>
       '/farmers/$farmerId/chat';
+  static const String _farmerCustomerFeedbackView =
+      '/farmers/:farmerId/customer-feedback';
+  static String farmerCustomerFeedbackView({@required dynamic farmerId}) =>
+      '/farmers/$farmerId/customer-feedback';
   static const all = <String>{
     splashView,
     mainView,
@@ -39,6 +44,7 @@ class Routes {
     _categoryDetailView,
     _farmerDetailView,
     _farmerChatView,
+    _farmerCustomerFeedbackView,
   };
 }
 
@@ -53,6 +59,8 @@ class Router extends RouterBase {
     RouteDef(Routes._categoryDetailView, page: CategoryDetailView),
     RouteDef(Routes._farmerDetailView, page: FarmerDetailView),
     RouteDef(Routes._farmerChatView, page: FarmerChatView),
+    RouteDef(Routes._farmerCustomerFeedbackView,
+        page: FarmerCustomerFeedbackView),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -96,6 +104,12 @@ class Router extends RouterBase {
     FarmerChatView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => FarmerChatView(),
+        settings: data,
+      );
+    },
+    FarmerCustomerFeedbackView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => FarmerCustomerFeedbackView(),
         settings: data,
       );
     },

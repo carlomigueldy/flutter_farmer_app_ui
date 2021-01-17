@@ -25,7 +25,18 @@ class FarmerDetailViewModel extends FutureViewModel<Farmer> {
     return await _farmerService.findById(farmerId: farmerId);
   }
 
-  navigateToChatViewWithFarmer({@required int farmerId}) {
+  navigateToChatViewWithFarmer() {
     _navigationService.navigateTo(Routes.farmerChatView(farmerId: farmerId));
+  }
+
+  navigateBack() {
+    _navigationService.back();
+  }
+
+  onSelectPopupMenuItem(String value) {
+    print(value);
+    if (value == 'write_feedback')
+      _navigationService
+          .navigateTo(Routes.farmerCustomerFeedbackView(farmerId: farmerId));
   }
 }

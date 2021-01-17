@@ -141,9 +141,7 @@ class FarmerDetailView extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    onPressed: () => model.navigateToChatViewWithFarmer(
-                      farmerId: model.data.id,
-                    ),
+                    onPressed: () => model.navigateToChatViewWithFarmer(),
                   ),
                 ),
               ],
@@ -168,6 +166,82 @@ class FarmerDetailView extends StatelessWidget {
             ),
           ),
         ),
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                margin: const EdgeInsets.all(10),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () => model.navigateBack(),
+                  color: getColor(type: ColorType.primary),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                margin: const EdgeInsets.all(10),
+                child: PopupMenuButton(
+                  child: Icon(
+                    Icons.more_vert,
+                    color: getColor(type: ColorType.primary),
+                  ),
+                  onSelected: (String value) =>
+                      model.onSelectPopupMenuItem(value),
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      value: 'write_feedback',
+                      child: Row(
+                        children: [
+                          Icon(Icons.rate_review_outlined),
+                          SizedBox(width: 10),
+                          Text('Write Feedback'),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: 'report',
+                      child: Row(
+                        children: [
+                          Icon(Icons.report),
+                          SizedBox(width: 10),
+                          Text('Report'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        )
       ],
     );
   }

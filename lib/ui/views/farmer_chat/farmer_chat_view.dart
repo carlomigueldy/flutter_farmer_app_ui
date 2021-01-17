@@ -25,8 +25,6 @@ class FarmerChatView extends StatelessWidget {
         return SafeArea(
           child: Scaffold(
             appBar: AppBar(
-              // automaticallyImplyLeading: false,
-              centerTitle: false,
               title: model.isBusy
                   ? Text('Loading...')
                   : Row(
