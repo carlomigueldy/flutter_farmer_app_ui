@@ -58,21 +58,21 @@ class FarmerCustomerFeedbackView extends StatelessWidget {
                           horizontal: 8.0,
                           vertical: 15,
                         ),
-                        child: productQualitySection(),
+                        child: productQualitySection(model: model),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8.0,
                           vertical: 15,
                         ),
-                        child: shippingAndHandlingSection(),
+                        child: shippingAndHandlingSection(model: model),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8.0,
                           vertical: 15,
                         ),
-                        child: farmerOverallFeedbackSection(),
+                        child: farmerOverallFeedbackSection(model: model),
                       ),
                       SizedBox(
                         height: 100,
@@ -104,7 +104,8 @@ class FarmerCustomerFeedbackView extends StatelessWidget {
     );
   }
 
-  Column farmerOverallFeedbackSection() {
+  Column farmerOverallFeedbackSection(
+      {@required FarmerCustomerFeedbackViewModel model}) {
     return Column(
       children: [
         SectionHeader(
@@ -120,13 +121,19 @@ class FarmerCustomerFeedbackView extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(3),
           ),
-          child: Rating5Stars(),
+          child: GestureDetector(
+            onTap: () => model.setFarmerOverallFeedbackRated(),
+            child: Rating5Stars(
+              model: model,
+              rated: model.farmerOverallFeedbackRated,
+            ),
+          ),
         ),
       ],
     );
   }
 
-  Column shippingAndHandlingSection() {
+  Column shippingAndHandlingSection({FarmerCustomerFeedbackViewModel model}) {
     return Column(
       children: [
         SectionHeader(
@@ -142,13 +149,19 @@ class FarmerCustomerFeedbackView extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(3),
           ),
-          child: Rating5Stars(),
+          child: GestureDetector(
+            onTap: () => model.setShippingAndHandlingRated(),
+            child: Rating5Stars(
+              model: model,
+              rated: model.shippingAndHandlingRated,
+            ),
+          ),
         ),
       ],
     );
   }
 
-  Column productQualitySection() {
+  Column productQualitySection({FarmerCustomerFeedbackViewModel model}) {
     return Column(
       children: [
         SectionHeader(
@@ -203,7 +216,13 @@ class FarmerCustomerFeedbackView extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 30),
-              Rating5Stars(),
+              GestureDetector(
+                onTap: () => model.setProductQualityRated(),
+                child: Rating5Stars(
+                  model: model,
+                  rated: model.productQualityRated,
+                ),
+              ),
               SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -278,7 +297,12 @@ class FarmerCustomerFeedbackView extends StatelessWidget {
 class Rating5Stars extends StatelessWidget {
   const Rating5Stars({
     Key key,
+    @required this.rated,
+    @required this.model,
   }) : super(key: key);
+
+  final bool rated;
+  final FarmerCustomerFeedbackViewModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -286,27 +310,27 @@ class Rating5Stars extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Icon(
-          Icons.star,
+          rated ? Icons.star : Icons.star_outline_outlined,
           color: Colors.yellow[700],
           size: 40,
         ),
         Icon(
-          Icons.star,
+          rated ? Icons.star : Icons.star_outline_outlined,
           color: Colors.yellow[700],
           size: 40,
         ),
         Icon(
-          Icons.star,
+          rated ? Icons.star : Icons.star_outline_outlined,
           color: Colors.yellow[700],
           size: 40,
         ),
         Icon(
-          Icons.star,
+          rated ? Icons.star : Icons.star_outline_outlined,
           color: Colors.yellow[700],
           size: 40,
         ),
         Icon(
-          Icons.star,
+          rated ? Icons.star : Icons.star_outline_outlined,
           color: Colors.yellow[700],
           size: 40,
         ),

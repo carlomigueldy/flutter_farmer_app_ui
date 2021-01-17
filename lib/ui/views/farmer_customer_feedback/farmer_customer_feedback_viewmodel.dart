@@ -15,6 +15,10 @@ class FarmerCustomerFeedbackViewModel extends FutureViewModel<Farmer> {
 
   final int farmerId;
 
+  bool productQualityRated = false;
+  bool shippingAndHandlingRated = false;
+  bool farmerOverallFeedbackRated = false;
+
   @override
   Future<Farmer> futureToRun() async {
     return await _farmerService.findById(farmerId: farmerId);
@@ -27,5 +31,20 @@ class FarmerCustomerFeedbackViewModel extends FutureViewModel<Farmer> {
       buttonTitle: 'OK',
       // cancelTitle: 'Close',
     );
+  }
+
+  setFarmerOverallFeedbackRated() {
+    farmerOverallFeedbackRated = true;
+    notifyListeners();
+  }
+
+  setShippingAndHandlingRated() {
+    shippingAndHandlingRated = true;
+    notifyListeners();
+  }
+
+  setProductQualityRated() {
+    productQualityRated = true;
+    notifyListeners();
   }
 }
