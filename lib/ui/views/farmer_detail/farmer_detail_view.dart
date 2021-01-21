@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_architecture_starter/theme/box_shadow.dart';
 import 'package:stacked_architecture_starter/theme/colors.dart';
 import 'package:stacked_architecture_starter/ui/views/farmer_detail/farmer_detail_viewmodel.dart';
 
@@ -141,7 +142,7 @@ class FarmerDetailView extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    onPressed: () => print('Pressed'),
+                    onPressed: () => model.navigateToChatViewWithFarmer(),
                   ),
                 ),
               ],
@@ -166,6 +167,72 @@ class FarmerDetailView extends StatelessWidget {
             ),
           ),
         ),
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    kBoxShadowPrimary,
+                  ],
+                ),
+                margin: const EdgeInsets.all(10),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () => model.navigateBack(),
+                  color: getColor(type: ColorType.primary),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    kBoxShadowPrimary,
+                  ],
+                ),
+                margin: const EdgeInsets.all(10),
+                child: PopupMenuButton(
+                  child: Icon(
+                    Icons.more_vert,
+                    color: getColor(type: ColorType.primary),
+                  ),
+                  onSelected: (String value) =>
+                      model.onSelectPopupMenuItem(value),
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      value: 'write_feedback',
+                      child: Row(
+                        children: [
+                          Icon(Icons.rate_review_outlined),
+                          SizedBox(width: 10),
+                          Text('Write Feedback'),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: 'report',
+                      child: Row(
+                        children: [
+                          Icon(Icons.report),
+                          SizedBox(width: 10),
+                          Text('Report'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        )
       ],
     );
   }

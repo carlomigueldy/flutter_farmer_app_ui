@@ -17,6 +17,7 @@ Farmer _$FarmerFromJson(Map<String, dynamic> json) {
     rating: (json['rating'] as num).toDouble(),
     image: json['image'] as String,
     backgroundImage: json['background_image'] as String,
+    isPesticideFreeFarm: json['is_pesticide_free_farm'] as bool,
   );
 }
 
@@ -30,4 +31,5 @@ Map<String, dynamic> _$FarmerToJson(Farmer instance) => <String, dynamic>{
       'rating': instance.rating,
       'image': instance.image,
       'background_image': instance.backgroundImage,
+      'is_pesticide_free_farm': instance.isPesticideFreeFarm,
     };
